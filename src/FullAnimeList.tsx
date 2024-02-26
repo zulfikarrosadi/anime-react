@@ -96,7 +96,7 @@ export default function FullAnimeList() {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    setIsFetching((prev) => (prev = true));
+    setIsFetching(true);
     const abortController = new AbortController();
     fetch(config.BASE_URL, { signal: abortController.signal })
       .then((responses) => {
