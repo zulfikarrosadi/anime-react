@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import config from './config';
-import { animeType } from './FullAnimeList';
+import { AnimeList, animeType } from './components/AnimeList';
 
 export default function ScheduleAnime() {
   const [anime, setAnime] = useState<animeType[]>();
@@ -49,27 +49,7 @@ export default function ScheduleAnime() {
       </select>
       {isFetching && <p>'Loading...'</p>}
       {error && <p>{error}</p>}
-      {anime &&
-        anime.map((data) => {
-          return (
-            <div key={data.mal_id}>
-              <h1>{data.title_english}</h1>
-              <h2>{data.title_japanese}</h2>
-              <h3>Score: {data.score}</h3>
-              <p>
-                Genres:{' '}
-                {data.genres.map((genre) => {
-                  return (
-                    <a key={genre.mal_id} href={genre.url}>
-                      {genre.name}{' '}
-                    </a>
-                  );
-                })}
-              </p>
-              <img src={data.images.webp.large_image_url} alt="" />
-            </div>
-          );
-        })}
+      {anime && <AnimeList animes={anime} />}
     </>
   );
 }
