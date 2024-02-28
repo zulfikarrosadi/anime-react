@@ -1,30 +1,13 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import config from './config';
-import { AnimeList, animeType } from './components/AnimeList';
+import fetchAnimes from './fetchAnimes';
+import { AnimeList } from './components/AnimeList';
 
 export default function ScheduleAnime() {
-  const [anime, setAnime] = useState<animeType[]>();
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState();
   const [day, setDay] = useState(getDay(new Date().getDay()));
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    fetch(`${config.SCHEDULE_ANIME_URL}${day}`, {
-      signal: abortController.signal,
-    })
-      .then((responses) => {
-        setIsFetching(true);
-        return responses.json();
-      })
-      .then((anime) => setAnime(anime.data))
-      .catch((error) => setError(error))
-      .finally(() => {
-        console.log(anime);
-        setIsFetching(false);
-      });
-    console.log(day);
-  }, [day]);
+  const { animes, isFetching, error } = fetchAnimes(
+    `${config.SCHEDULE_ANIME_URL}${day}`,
+  );
 
   function handleDayChange(e: ChangeEvent<HTMLSelectElement>) {
     setDay(getDay(Number(e.target.value)));
@@ -47,9 +30,9 @@ export default function ScheduleAnime() {
         <option value="5">friday</option>
         <option value="6">saturday</option>
       </select>
-      {isFetching && <p>'Loading...'</p>}
-      {error && <p>{error}</p>}
-      {anime && <AnimeList animes={anime} />}
+      {error && <p>{error.message}</p>}
+      {isFetching && 'Loading...'}
+      {animes && <AnimeList animes={animes} />}
     </>
   );
 }
