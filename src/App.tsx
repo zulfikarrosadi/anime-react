@@ -1,4 +1,4 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 
 export default function App() {
@@ -8,10 +8,10 @@ export default function App() {
       <nav>
         <ul>
           <li>
-            <Link to={'/animes'}>Animes</Link>
+            <NavLink to={'/animes'}>Animes</NavLink>
           </li>
           <li>
-            <Link to={'/animes/schedule'}>Schedule</Link>
+            <NavLink to={'/animes/schedule'}>Schedule</NavLink>
           </li>
         </ul>
       </nav>
