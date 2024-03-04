@@ -3,6 +3,8 @@ import App from './App.tsx';
 import FullAnimeList from './FullAnimeList.tsx';
 import ScheduleAnime from './ScheduleAnime.tsx';
 import ErrorPage from './ErrorPage.tsx';
+import SearchAnime from './SearchAnime.tsx';
+import { searchAnimeLoader } from './components/SearchBar.tsx';
 
 export default createBrowserRouter([
   {
@@ -17,6 +19,11 @@ export default createBrowserRouter([
       {
         path: '/animes/schedule',
         element: <ScheduleAnime />,
+      },
+      {
+        path: '/animes/search',
+        element: <SearchAnime />,
+        loader: searchAnimeLoader,
       },
     ],
   },
