@@ -1,4 +1,5 @@
 import { Outlet, Link } from 'react-router-dom';
+import SearchBar from './components/SearchBar';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           </li>
         </ul>
       </nav>
+      <SearchBar />
       <Outlet />
     </>
   );
